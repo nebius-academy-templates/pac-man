@@ -1,45 +1,37 @@
-Write me a Tree of Thought (ToT) prompt for brainstorming the best implementation options, simple math, and edge cases for the flashlight mechanics in this game, and save it in `prompts/flashlight.md`. All map in the dark, and Pac-Man has a flashlight that illuminates the directions Pac-Man is looking.
-The light must be physically plausible and not penetrate walls. The flashlight illuminates the space in front of Pac-Man in the shape of a cone and slightly behind him in the form of residual dimmer lighting. The range of the flashlight should be limited to the radius around Pac-Man.
-Don't describe implementation details, just task and prompt technique.
+# Meta prompt
+Напиши промпт Tree of Thought (ToT) для мозгового штурма лучших вариантов реализации механики flashlight в этой игре, включая простую математику и возможные edge cases, и сохрани его в `prompts/flashlight.md`. Вся карта тёмная, и у Pac-Man есть flashlight, который освещает направление, куда смотрит Pac-Man. Свет должен быть физически правдоподобным и не проходить сквозь стены. Flashlight освещает пространство перед Pac-Man в форме cone, а позади него создаёт слабое остаточное освещение. Радиус flashlight должен быть ограничен областью вокруг Pac-Man. Не описывай детали реализации — только задачу и технику промпта.
 
-# Task
-Implement a flashlight mechanic in a Pygame Pacman clone. The entire map is in the dark. Pacman
-carries a flashlight that illuminates a cone-shaped area in front of him (the direction he faces)
-and casts dimmer residual light slightly behind him. The flashlight has a limited radius. Light is
-physically plausible - it does not penetrate or pass through walls.
+# Task prompt
+Реализуй механику flashlight в клоне Pygame Pacman. Вся карта тёмная. Pacman носит flashlight, который освещает область в форме cone перед ним в направлении, куда он смотрит, и отбрасывает приглушенный остаточный свет немного позади него.. Flashlight имеет ограниченный радиус действия. Свет должен быть физически правдоподобным: он не проникает и не проходит сквозь стены.
 
-## Step 1 - Branch
-Generate 3 fundamentally different solution strategies for rendering and tracking the flashlight
-visibility. Each strategy must be a complete, independent approach - not a variation of another.
+## Шаг 1 — Ответвление
+Сгенерируй 3 принципиально разные стратегии рендеринга и отслеживания видимости flashlight. Каждая стратегия должна быть полностью самостоятельным подходом, а не вариацией другой.
 
-## Step 2 - Evaluate
-For each strategy, score on a 1-5 scale:
-- Performance at 60 FPS
-- Visual quality (smooth cone, natural falloff, no artifacts)
-- Wall occlusion accuracy (light stops at walls, no leaks)
-- Code complexity
-- Integration risk with existing codebase
+## Шаг 2 — Оценивание
+Для каждой стратегии выставь оценку по шкале от 1 до 5:
+- Производительность при 60 FPS.
+- Визуальное качество (плавный cone, естественное затухание, отсутствие артефактов).
+- Точность блокировки света стенами (свет останавливается у стен, нет утечек).
+- Сложность кода.
+- Риск интеграции с существующей кодовой базой.
 
-## Step 3 - Prune
-Eliminate the weakest strategy. Explain why it loses.
+## Шаг 3 — Отсеивание
+Исключи самую слабую стратегию. Объясни, почему она проигрывает.
 
-## Step 4 - Deepen
-Take the 2 surviving strategies and think one level deeper: what edge cases, failure modes, or
-hidden costs emerge when you consider the actual implementation? Consider at minimum:
-- The math for cone shape, brightness falloff, and wall blocking
-- Behavior in narrow corridors, corners, and intersections
-- Performance cost per frame (show rough numbers)
-- Interaction with existing overlays (score, pause, death animation)
-- Whether ghosts/dots outside the lit area should be fully hidden or faintly visible
-- Dots and power pellets must remain fully visible inside the lit area but must NOT affect or alter illumination rendering
-- The floor (corridor background) color must be distinct from black so it is readable under the shadow overlay
-- Pacman himself must always be fully visible - use a fixed halo circle around him regardless of facing direction
-- Wall boundaries in the lit area must appear as clean, solid, continuous lines - not jagged or torn at cone edges or occlusion boundaries
-- The shadow compositing approach must use a colorkey (not SRCALPHA) to punch transparent holes for lit areas, because pygame's polygon draw ignores alpha on SRCALPHA surfaces
+## Шаг 4 — Углубление
+Возьми 2 оставшиеся стратегии и проанализируй их глубже: какие edge cases, сбои или скрытые издержки появятся при реальной реализации? Обязательно учти:
+- Математику формы cone, затухания яркости и блокировки света стенами.
+- Стоимость производительности на кадр (с примерными цифрами).
+- Взаимодействие с существующими оверлеями (счет, пауза, анимация смерти).
+- Должны ли ghosts и точки вне освещённой области быть полностью скрыты или слегка видимы.
+- Точки и power pellets должны оставаться полностью видимыми внутри освещенной зоны, но НЕ должны влиять или изменять рендеринг освещения.
+- Цвет пола в проходах должен отличаться от чистого чёрного, чтобы сцена оставалась читаемой под shadow overlay.
+- Pacman должен всегда оставаться полностью видимым — используй фиксированный ореол вокруг него независимо от направления взгляда.
+- Границы стен внутри освещённой области должны выглядеть чистыми, сплошными и непрерывными — без рваных краёв по границам cone или границам окклюзии.
+- Подход к композиции теней должен использовать colorkey (не SRCALPHA), чтобы «пробивать» прозрачные отверстия для освещенных областей, так как отрисовка полигонов в Pygame игнорирует альфа-канал на поверхностях SRCALPHA.
 
-## Step 5 - Select
-Choose the winner. Justify with a direct comparison. Recommend concrete values for the cone angle,
-forward radius, rear radius, and falloff curve.
+## Шаг 5 — Выбор
+Выбери победителя. Обоснуй выбор прямым сравнением. Порекомендуй конкретные значения для угла cone, переднего радиуса освещения, заднего радиуса остаточного света и кривой затухания яркости.
 
-## Step 6 - Plan
-Produce a step-by-step implementation plan from the winning strategy.
+## Шаг 6 — План
+Составь пошаговый план реализации победившей стратегии.
