@@ -1,22 +1,22 @@
 # PyPacman
 
-A Pacman clone written in Python using Pygame.
+Клон Pacman, написанный на Python с Pygame.
 
-## Prerequisites
+## Требования
 
-- Python 3.8 or higher
-- pip (Python package manager)
+- Python 3.8 или выше
+- pip (менеджер пакетов Python)
 
-## Installation
+## Установка
 
-1. Clone the repository:
+1. Клонируйте репозиторий:
 
 ```bash
 git clone <repository-url>
 cd PyPacman
 ```
 
-2. Create and activate a virtual environment:
+2. Создайте и активируйте виртуальное окружение:
 
 ```bash
 python3 -m venv .venv
@@ -24,36 +24,36 @@ source .venv/bin/activate       # macOS / Linux
 .venv\Scripts\activate          # Windows
 ```
 
-3. Install dependencies:
+3. Установите зависимости:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Running the Game
+## Запуск игры
 
 ```bash
 python3 main.py
 ```
 
-A 1024x768 window will open with the game.
+Откроется игровое окно 1024×768.
 
-## Controls
+## Управление
 
-- **Arrow Up** - move up
-- **Arrow Down** - move down
-- **Arrow Left** - move left
-- **Arrow Right** - move right
+- **Arrow Up** - движение вверх
+- **Arrow Down** - движение вниз
+- **Arrow Left** - движение влево
+- **Arrow Right** - движение вправо
 
-## Gameplay
+## Геймплей
 
-- Eat all the dots on the map to complete a level.
-- Pick up power pellets to temporarily scare ghosts - you can eat them for bonus points while they are scared.
-- Five ghosts (Blinky, Pinky, Inky, Clyde, and Blue) chase Pacman using different targeting strategies.
-- Ghosts alternate between scatter and chase modes throughout a level.
-- There are no game overs. The level resets after you complete it, and your high score is saved between sessions.
+- Съешьте все точки на карте, чтобы завершить уровень.
+- Собирайте power pellets, чтобы временно напугать ghosts (их можно съесть и получить бонусные очки, пока они напуганы).
+- Пять ghosts (Blinky, Pinky, Inky, Clyde и Blue) преследуют Pacman, используя разные стратегии поиска цели.
+- Ghosts переключаются между режимами scatter и chase на протяжении уровня.
+- Game over отсутствует. После прохождения уровень перезапускается, а лучший результат сохраняется между игровыми сессиями.
 
-## Project Structure
+## Структура проекта
 
 ```
 PyPacman/
@@ -73,6 +73,6 @@ PyPacman/
     └── utils/               # Movement, drawing, and graph utilities
 ```
 
-## License
+## Лицензия
 
-GPLv3 - see [LICENSE](LICENSE) for details.
+GPLv3 - подробности смотрите в [LICENSE](LICENSE).
